@@ -1,2 +1,8 @@
-target
 .DS_Store
+CONFIG.md
+
+target/
+*.class
+.idea/
+*.iml
+.vscode/
