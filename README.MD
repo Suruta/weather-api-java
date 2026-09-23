@@ -11,4 +11,8 @@ soon
 ```
 git checkout -b <branch name> - create a new branch
 git checkout <branch name> - switch between branches
+git branch -d <branch name> - delete branch locally
+```
+```
+git push -u origin <branch name> - push secondary branch to remove rep
 ```
