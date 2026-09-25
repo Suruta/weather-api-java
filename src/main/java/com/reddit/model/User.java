@@ -1,4 +1,4 @@
-package com.redditclone.model;
+package com.reddit.model;
 
 import java.time.Instant;
 import java.util.Objects;
