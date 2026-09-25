@@ -16,3 +16,6 @@ git branch -d <branch name> - delete branch locally
 ```
 git push -u origin <branch name> - push secondary branch to remove rep
 ```
+
+## Health check
+Built with `mvn spring-boot:run`
