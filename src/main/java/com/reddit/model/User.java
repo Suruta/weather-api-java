@@ -4,13 +4,6 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * A registered user of the platform.
- *
- * A user can be a regular member or a privileged (admin) member.
- * Kept intentionally simple for Week 1 — no auth/password handling yet,
- * that will come with the API/persistence layer (see RC-12 in the backlog).
- */
 public class User {
 
     private final String id;

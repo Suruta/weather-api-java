@@ -1,6 +1,8 @@
 .DS_Store
 .settings
 CONFIG.md
+.env
+notes.md
 
 target/
 *.class
