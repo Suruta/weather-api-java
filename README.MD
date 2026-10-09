@@ -21,3 +21,4 @@ git push -u origin <branch name> - push secondary branch to remove rep
 
 ## Health check
 Built with `mvn spring-boot:run`
+Check with `mvn -q test`, `./mvnw test`
