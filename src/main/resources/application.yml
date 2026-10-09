@@ -1,0 +1,7 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:postgresql://localhost:5432/reddit_db
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
