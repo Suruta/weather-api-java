@@ -1,8 +1,8 @@
-package com.reddit.model;
+package com.reddit.reddit_clone.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.reddit.model.Post.PostType;
+import com.reddit.reddit_clone.model.Post.PostType;
 import java.time.Instant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
