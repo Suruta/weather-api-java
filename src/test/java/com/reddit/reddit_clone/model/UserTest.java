@@ -1,4 +1,4 @@
-package com.reddit.model;
+package com.reddit.reddit_clone.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 

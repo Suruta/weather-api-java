@@ -37,7 +37,7 @@ or just run tests:
 ```
 CREATE DATABASE reddit_db;
 CREATE USER reddit_admin WITH PASSWORD '12345678';
-ALTER DATABASE admin OWNER TO reddit_admin;
+ALTER DATABASE <db name> OWNER TO reddit_admin;
 ```
 give all permissions before running jdbc
 ```
