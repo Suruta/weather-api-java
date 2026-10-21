@@ -5,6 +5,7 @@ import java.time.Instant;
 import org.springframework.data.annotation.Id;
 
 import io.micrometer.common.lang.Nullable;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,13 +30,13 @@ public class Post {
     private String description;
     private Integer voteCount = 0;
 
-    @ManyToOne(fetch = LAZY)
-    @joinColumn(name = "userid", referencedColumnName = "userid")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid", referencedColumnName = "userid")
     private User user;
     private Instant createdDate;
 
-    @ManyToOne(fetch = LAZY)
-    @joinColumn(name = "id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Subreddit subreddit;
 }
 

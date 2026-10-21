@@ -4,7 +4,7 @@ import java.time.Instant;
 
 import org.springframework.data.annotation.Id;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,16 +17,16 @@ import lombok.Setter;
 @Entity
 public class Comment {
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String text;
 
-	@ManyToOne(fetch = LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "postId", referencedColumnName = "postId")
 	private Post post;
 	private Instant createdDate;
 
-	@ManyToOne(fetch = LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId", referencedColumnName = "userId")
 	private User user;
 }

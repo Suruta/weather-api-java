@@ -2,6 +2,7 @@ package com.reddit.reddit_clone.model;
 
 import java.time.Instant;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -18,7 +19,7 @@ import lombok.Setter;
 @Entity
 public class User {
   @Id
-  @GeneratedValue(strategy = IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long userId;
   private String username;
   private String password;
