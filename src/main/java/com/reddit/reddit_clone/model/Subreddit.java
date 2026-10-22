@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,16 +18,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Subreddit {
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
 
-    @OneToMany(fetch = LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Post> posts;
     private Instant createdDate;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 }
 

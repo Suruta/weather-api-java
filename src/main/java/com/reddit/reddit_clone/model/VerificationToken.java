@@ -8,10 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.*;
-
-import static jakarta.persistence.FetchType.LAZY;
-import static jakarta.persistence.FetchType.IDENTITY;
+import jakarta.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -20,11 +17,11 @@ import static jakarta.persistence.FetchType.IDENTITY;
 @Table(name = "token")
 public class VerificationToken {
 	@Id
-	@GeneratedValue(stategy = IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String token;
 
-	@OneToOne(fetch = LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	private User user;
 	private Instant expiryDate;
 }
