@@ -6,7 +6,7 @@ git commands
 
 ## lab 1 / Java fundamentals
 
-Java basics, OOP, Stack memory storage, Objects in heap memory
+Java basics, OOP, Stack memory storage, Objects in heap memory, Garbage collector, StringBuilder, StringBuffer
 
 ## lab 2
 
@@ -14,7 +14,7 @@ Java basics, OOP, Stack memory storage, Objects in heap memory
 
 ## lab 3 / adding SpringBoot
 
-SpringBoot, Common Annotations, Dependencies, SOLID
+SpringBoot, Common Annotations, Dependencies, SOLID, Bean Annotation and which annotations can create it
 
 ## lab 4 / testing
 
@@ -25,11 +25,11 @@ JUnit, Spring assert, Nested annotation, CsvSource annotation, assertAll annotat
 
 ## lab 5 / db and jdbc
 
-Postgresql, Constraints, Transaction, Transactional annotation, Transaction Isolation.
+Postgresql, Constraints, Transactional annotation, ACID.
 
 ## lab 6
 
-StringBoot jpa and hibernate, 
+StringBoot jpa and hibernate,
 
 ## lab 7
 

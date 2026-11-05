@@ -1,7 +1,5 @@
 package com.reddit.reddit_clone.model;
 
-import org.springframework.data.annotation.Id;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
+@Table(name = "votes")
 public class Vote {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +21,10 @@ public class Vote {
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "postId", referencedColumnName = "postId")
+	@JoinColumn(name = "post_id")
 	private Post post;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId", referencedColumnName = "userId")
+	@JoinColumn(name = "user_id")
 	private User user;
 }

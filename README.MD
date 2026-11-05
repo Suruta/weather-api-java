@@ -20,7 +20,7 @@ git push -u origin <branch name> - push secondary branch to remove rep
 
 ## Health check
 
-Built with `mvn spring-boot:run`
+Built with `mvn spring-boot:run`  
 Check with `./mvnw test`
 
 After adding dependencies run:
@@ -34,9 +34,9 @@ or just run tests:
 
 ### Testing
 
-all tests: `mvn -q test`
-one class: `mvn -q test -Dtest=<Class name>`
-check: `mvn -q verify`
+all tests: `mvn -q test`  
+one class: `mvn -q test -Dtest=<Class name>`  
+check: `mvn -q verify`  
 domain specific: `mvn -pl domain -q test`
 
 ### Create db before connecting jdbc
