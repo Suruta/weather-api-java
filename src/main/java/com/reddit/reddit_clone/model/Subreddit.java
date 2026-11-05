@@ -3,8 +3,6 @@ package com.reddit.reddit_clone.model;
 import java.time.Instant;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,10 +14,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
+@Table(name = "subreddits")
 public class Subreddit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long subredditId;
     private String name;
     private String description;
 

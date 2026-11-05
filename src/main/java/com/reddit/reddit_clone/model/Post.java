@@ -2,8 +2,6 @@ package com.reddit.reddit_clone.model;
 
 import java.time.Instant;
 
-import org.springframework.data.annotation.Id;
-
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,6 +17,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,12 +30,12 @@ public class Post {
     private Integer voteCount = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid", referencedColumnName = "userid")
+    @JoinColumn(name = "user_id")
     private User user;
     private Instant createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "subreddit_id")
     private Subreddit subreddit;
 }
 
