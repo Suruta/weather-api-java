@@ -23,8 +23,17 @@ spring:
     username: ${AGENTMAIL_USER}
     password: ${AGENTMAIL_API_KEY}
     protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
 
-logging:
-  level:
-    org:
-      flywaydb: DEBUG
+# logging:
+#   level:
+#     org:
+#       flywaydb: DEBUG

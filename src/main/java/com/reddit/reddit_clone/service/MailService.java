@@ -18,13 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MailService {
 	private final JavaMailSender mailSender;
-	private final MailContentBuilder mailContentBuilder;
+	private final MailContentBuilder mailContentBuilder; // TODO Will use in a future
 
 	@Async
-	void sendMail(NotificationEmail notificationEmail) {
+	public void sendMail(NotificationEmail notificationEmail) {
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-			messageHelper.setFrom("redditclone@email.reddit");
+			messageHelper.setFrom("suruta@agentmail.to");
 			messageHelper.setTo(notificationEmail.getRecipient());
 			messageHelper.setSubject(notificationEmail.getSubject());
 			messageHelper.setText(notificationEmail.getBody());

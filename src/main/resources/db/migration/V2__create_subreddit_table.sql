@@ -1,5 +1,5 @@
 CREATE TABLE subreddits (
-    id BIGSERIAL PRIMARY KEY,
+    subreddit_id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255),
     description TEXT,
     created_date TIMESTAMP,
