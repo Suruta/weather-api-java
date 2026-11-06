@@ -20,33 +20,30 @@ git push -u origin <branch name> - push secondary branch to remove rep
 
 ## Health check
 
-Built with `mvn spring-boot:run`  
-Check with `./mvnw test`
+run SpringBoot: `mvn spring-boot:run`
+reload Maven after installing dependency: `mvn clean complie`
 
-After adding dependencies run:
-```cmd
-./mvnw clean install
-```
-or just run tests:
-```cmd
-./mvnw test
-```
+## Create db before connecting jdbc
 
-### Testing
-
-all tests: `mvn -q test`  
-one class: `mvn -q test -Dtest=<Class name>`  
-check: `mvn -q verify`  
-domain specific: `mvn -pl domain -q test`
-
-### Create db before connecting jdbc
-
-```
+```sql
 CREATE DATABASE reddit_db;
 CREATE USER reddit_admin WITH PASSWORD '12345678';
 ALTER DATABASE <db name> OWNER TO reddit_admin;
 ```
 give all permissions before running jdbc
-```
+```sql
 GRANT ALL ON SCHEMA public TO reddit_admin;
+```
+
+## flyway migration
+
+If had errors after running migration, reset the `public` schema
+```sql
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+```
+
+If db user is n't owner of schema:
+```sql
+GRANT ALL ON SCHEMA public TO public;
 ```
