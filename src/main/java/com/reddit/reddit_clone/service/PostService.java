@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.reddit.reddit_clone.dto.PostRequest;
+import com.reddit.reddit_clone.dto.PostResponse;
 import com.reddit.reddit_clone.model.Post;
 import com.reddit.reddit_clone.model.Subreddit;
 import com.reddit.reddit_clone.model.User;
@@ -15,7 +16,7 @@ import com.reddit.reddit_clone.repository.SubredditRepository;
 import com.reddit.reddit_clone.repository.UserRepository;
 import com.reddit.reddit_clone.exceptions.SpringRedditException;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -34,24 +35,26 @@ public class PostService {
 		postRepository.save(post);
 	}
 
-	public List<Post> getAll() {
-		return postRepository.findAll();
+	@Transactional(readOnly = true)
+	public List<PostResponse> getAll() {
+		return postRepository.findAll().stream().map(this::toResponse).toList();
 	}
 
-	public Post getById(Long id) {
-		return postRepository.findById(id)
-			.orElseThrow(() -> new SpringRedditException("Post not found"));
+	@Transactional(readOnly = true)
+	public PostResponse getById(Long id) {
+		return toResponse(find(id));
 	}
 
+	@Transactional
 	public void update(Long id, PostRequest postRequest) {
-		Post post = postRepository.findById(id)
-			.orElseThrow(() -> new SpringRedditException("Post not found"));
-
+		Post post = find(id);
 		apply(post, postRequest);
+		postRepository.save(post);
 	}
 
+	@Transactional
 	public void delete(Long id) {
-		postRepository.deleteById(id);
+		postRepository.delete(find(id));
 	}
 
 	private void apply(Post post, PostRequest postRequest) {
@@ -68,6 +71,26 @@ public class PostService {
 				.orElseThrow(() -> new SpringRedditException("User not found"));
 			post.setUser(user);
 		}
+	}
+
+	private Post find(Long id) {
+		return postRepository.findById(id)
+			.orElseThrow(() -> new SpringRedditException("Post not found"));
+	}
+
+	private PostResponse toResponse(Post post) {
+		return PostResponse.builder()
+			.postId(post.getPostId())
+			.postName(post.getPostName())
+			.url(post.getUrl())
+			.description(post.getDescription())
+			.voteCount(post.getVoteCount())
+			.userId(post.getUser() != null ? post.getUser().getUserId() : null)
+			.username(post.getUser() != null ? post.getUser().getUsername() : null)
+			.subredditId(post.getSubreddit() != null ? post.getSubreddit().getSubredditId() : null)
+			.subredditName(post.getSubreddit() != null ? post.getSubreddit().getName() : null)
+			.createdDate(post.getCreatedDate())
+			.build();
 	}
 }
 

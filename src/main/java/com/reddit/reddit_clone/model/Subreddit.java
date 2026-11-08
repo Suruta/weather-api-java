@@ -22,11 +22,12 @@ public class Subreddit {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "subreddit", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "subreddit", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Post> posts;
     private Instant createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_Id")
     private User user;
 }
 
