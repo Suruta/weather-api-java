@@ -7,4 +7,5 @@ import com.reddit.reddit_clone.model.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+	// boolean existsBySubreddit_SubredditId(Long subredditId);
 }

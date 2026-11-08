@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reddit.reddit_clone.dto.PostRequest;
+import com.reddit.reddit_clone.dto.PostResponse;
 import com.reddit.reddit_clone.service.PostService;
 import com.reddit.reddit_clone.model.Post;
 
@@ -33,12 +34,12 @@ public class PostController {
 	}
 
 	@GetMapping
-	public List<Post> getAll() {
+	public List<PostResponse> getAll() {
 		return postService.getAll();
 	}
 
 	@GetMapping("/{id}")
-	public Post getById(@PathVariable Long id) {
+	public PostResponse getById(@PathVariable Long id) {
 		return postService.getById(id);
 	}
 

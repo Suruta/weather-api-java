@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.reddit.reddit_clone.model.Subreddit;
 
 import com.reddit.reddit_clone.dto.SubredditRequest;
+import com.reddit.reddit_clone.dto.SubredditResponse;
 import com.reddit.reddit_clone.service.SubredditService;
 
 import lombok.AllArgsConstructor;
@@ -33,17 +32,17 @@ public class SubredditController {
 	}
 
 	@GetMapping
-	public List<Subreddit> getAll() {
+	public List<SubredditResponse> getAll() {
 		return subredditService.getAll();
 	}
 
 	@GetMapping("/{id}")
-	public Subreddit getById(@PathVariable Long id) {
+	public SubredditResponse getById(@PathVariable Long id) {
 		return subredditService.getById(id);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> update(@PathVariable Long id, SubredditRequest subredditRequest) {
+	public ResponseEntity<String> update(@PathVariable Long id, @RequestBody SubredditRequest subredditRequest) {
 		subredditService.update(id, subredditRequest);
 		return new ResponseEntity<>("Subreddit updated successfully", HttpStatus.OK);
 	}
