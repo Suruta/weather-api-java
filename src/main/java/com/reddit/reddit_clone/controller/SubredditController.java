@@ -20,7 +20,7 @@ import com.reddit.reddit_clone.service.SubredditService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/subreddits")
+@RequestMapping("/api/v1/subreddits")
 @AllArgsConstructor
 public class SubredditController {
 	private final SubredditService subredditService;

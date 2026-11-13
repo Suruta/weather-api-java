@@ -20,8 +20,8 @@ git push -u origin <branch name> - push secondary branch to remove rep
 
 ## Health check
 
-run SpringBoot: `mvn spring-boot:run`
-reload Maven after installing dependency: `mvn clean complie`
+run SpringBoot: `mvn spring-boot:run`  
+reload Maven after installing dependency: `mvn clean complie` or `mvn install`  
 
 ## Create db before connecting jdbc
 
