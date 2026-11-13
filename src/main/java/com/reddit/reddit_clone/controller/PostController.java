@@ -22,7 +22,7 @@ import com.reddit.reddit_clone.model.Post;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/api/v1/posts")
 @AllArgsConstructor
 public class PostController {
 	private final PostService postService;

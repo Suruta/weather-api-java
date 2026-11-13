@@ -33,6 +33,10 @@ spring:
           timeout: 5000
           writetimeout: 5000
 
+jwt:
+  secret:
+    key: ${JWT_SECRET_KEY}
+
 # logging:
 #   level:
 #     org:

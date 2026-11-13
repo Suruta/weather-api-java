@@ -34,3 +34,8 @@ StringBoot jpa and hibernate,
 ## lab 7
 
 Flyway
+
+
+## Questions to ask
+
+Is it possible to have two identical beans in two different classes?
