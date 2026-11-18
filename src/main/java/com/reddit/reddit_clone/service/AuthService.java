@@ -20,7 +20,7 @@ import com.reddit.reddit_clone.model.VerificationToken;
 import com.reddit.reddit_clone.repository.UserRepository;
 import com.reddit.reddit_clone.repository.VerificationTokenRepository;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -53,6 +53,7 @@ public class AuthService {
 		));
 	}
 
+	@Transactional(readOnly = true)
 	public LoginResponse login(LoginRequest loginRequest) {
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -82,7 +83,7 @@ public class AuthService {
 		return token;
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public void verifyAccount(String token) {
 		Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
 		verificationToken.orElseThrow(() -> new SpringRedditException("Invalid token"));
