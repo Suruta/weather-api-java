@@ -18,7 +18,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class SecurityConfig {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
-	private final AuthenticationProvider authenticationProvider;
 
 	// TODO Need to change this config in future
 	@Bean
@@ -29,8 +28,7 @@ public class SecurityConfig {
 			.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests(req -> req.requestMatchers("/api/v1/auth/**").permitAll()
 			.anyRequest().authenticated())
-			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-			.authenticationProvider(authenticationProvider);
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return http.build();
 	}
 }

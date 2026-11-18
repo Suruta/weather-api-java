@@ -27,6 +27,7 @@ public class Post {
 
     @Lob
     private String description;
+    @Builder.Default
     private Integer voteCount = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
