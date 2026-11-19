@@ -26,30 +26,30 @@ public class SubredditController {
 	private final SubredditService subredditService;
 
 	@PostMapping
-	public ResponseEntity<String> create(@RequestBody SubredditRequest subredditRequest) {
-		subredditService.create(subredditRequest);
+	public ResponseEntity<String> createSubreddit(@RequestBody SubredditRequest subredditRequest) {
+		subredditService.createSubreddit(subredditRequest);
 		return new ResponseEntity<>("Subreddit created successfully", HttpStatus.CREATED);
 	}
 
 	@GetMapping
-	public List<SubredditResponse> getAll() {
-		return subredditService.getAll();
+	public List<SubredditResponse> getSubreddits() {
+		return subredditService.getSubreddits();
 	}
 
 	@GetMapping("/{id}")
-	public SubredditResponse getById(@PathVariable Long id) {
-		return subredditService.getById(id);
+	public SubredditResponse getSubredditById(@PathVariable Long id) {
+		return subredditService.getSubredditById(id);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> update(@PathVariable Long id, @RequestBody SubredditRequest subredditRequest) {
-		subredditService.update(id, subredditRequest);
+	public ResponseEntity<String> updateSubreddit(@PathVariable Long id, @RequestBody SubredditRequest subredditRequest) {
+		subredditService.updateSubreddit(id, subredditRequest);
 		return new ResponseEntity<>("Subreddit updated successfully", HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable Long id) {
-		subredditService.delete(id);
+	public ResponseEntity<String> deleteSubreddit(@PathVariable Long id) {
+		subredditService.deleteSubreddit(id);
 		return new ResponseEntity<>("Subreddit deleted successfully", HttpStatus.OK);
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reddit.reddit_clone.dto.PostRequest;
@@ -28,31 +29,41 @@ public class PostController {
 	private final PostService postService;
 
 	@PostMapping
-	public ResponseEntity<String> create(@RequestBody PostRequest postRequest) {
-		postService.create(postRequest);
+	public ResponseEntity<String> createPost(@RequestBody PostRequest postRequest) {
+		postService.createPost(postRequest);
 		return new ResponseEntity<>("Post created successfully", HttpStatus.CREATED);
 	}
 
 	@GetMapping
-	public List<PostResponse> getAll() {
-		return postService.getAll();
+	public List<PostResponse> getPosts() {
+		return postService.getPosts();
 	}
 
 	@GetMapping("/{id}")
-	public PostResponse getById(@PathVariable Long id) {
-		return postService.getById(id);
+	public PostResponse getPostById(@PathVariable Long id) {
+		return postService.getPostById(id);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> update(@PathVariable Long id, @RequestBody PostRequest postRequest) {
-		postService.update(id, postRequest);
+	public ResponseEntity<String> updatePost(@PathVariable Long id, @RequestBody PostRequest postRequest) {
+		postService.updatePost(id, postRequest);
 		return new ResponseEntity<>("Post updated successfully", HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable Long id) {
-		postService.delete(id);
+	public ResponseEntity<String> deletePost(@PathVariable Long id) {
+		postService.deletePost(id);
 		return new ResponseEntity<>("Post deleted successfully", HttpStatus.OK);
+	}
+
+	@GetMapping(params = "subredditId")
+	public List<PostResponse> getPostsBySubredditId(@RequestParam Long subredditId) {
+		return postService.getPostsBySubredditId(subredditId);
+	}
+
+	@GetMapping(params = "username")
+	public List<PostResponse> getPostsByUsername(@RequestParam String username) {
+		return postService.getPostsByUsername(username);
 	}
 }
 

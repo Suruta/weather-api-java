@@ -1,4 +1,4 @@
-CREATE TABLE tokens (
+CREATE TABLE IF NOT EXISTS tokens (
     token_id BIGSERIAL PRIMARY KEY,
     token VARCHAR(255) NOT NULL,
     expiry_date TIMESTAMP,
