@@ -1,5 +1,8 @@
 package com.reddit.reddit_clone.vote;
 
+import com.reddit.reddit_clone.post.Post;
+import com.reddit.reddit_clone.user.User;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
