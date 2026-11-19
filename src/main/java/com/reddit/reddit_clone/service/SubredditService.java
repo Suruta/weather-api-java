@@ -25,7 +25,7 @@ public class SubredditService {
 	private final PostRepository postRepository;
 
 	@Transactional
-	public void create(SubredditRequest subredditRequest) {
+	public void createSubreddit(SubredditRequest subredditRequest) {
 		Subreddit subreddit = new Subreddit();
 		apply(subreddit, subredditRequest);
 		subreddit.setCreatedDate(Instant.now());
@@ -34,25 +34,25 @@ public class SubredditService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<SubredditResponse> getAll() {
+	public List<SubredditResponse> getSubreddits() {
 		return subredditRepository.findAll().stream().map(this::toResponse).toList();
 	}
 
 	@Transactional(readOnly = true)
-	public SubredditResponse getById(Long id) {
+	public SubredditResponse getSubredditById(Long id) {
 		Subreddit subreddit = find(id);
 		return toResponse(subreddit);
 	}
 
 	@Transactional
-	public void update(Long id, SubredditRequest subredditRequest) {
+	public void updateSubreddit(Long id, SubredditRequest subredditRequest) {
 		Subreddit subreddit = find(id);
 		apply(subreddit, subredditRequest);
 		subredditRepository.save(subreddit);
 	}
 
 	@Transactional
-	public void delete(Long id) {
+	public void deleteSubreddit(Long id) {
 		subredditRepository.delete(find(id));
 	}
 

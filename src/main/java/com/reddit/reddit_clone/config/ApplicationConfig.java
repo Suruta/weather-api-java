@@ -22,7 +22,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ApplicationConfig {
 	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
 
 	@Bean
 	UserDetailsService userDetails() {
@@ -31,13 +30,6 @@ public class ApplicationConfig {
 			user.orElseThrow(() -> new SpringRedditException("Username does not exist"));
 			return new UserDetailsImpl(user.get());
 		};
-	}
-
-	@Bean
-	public AuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetails());
-		authProvider.setPasswordEncoder(passwordEncoder);
-		return authProvider;
 	}
 
 	@Bean

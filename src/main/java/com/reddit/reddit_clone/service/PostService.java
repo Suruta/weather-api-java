@@ -27,7 +27,7 @@ public class PostService {
 	private final UserRepository userRepository;
 
 	@Transactional
-	public void create(PostRequest postRequest) {
+	public void createPost(PostRequest postRequest) {
 		Post post = new Post();
 		apply(post, postRequest);
 		post.setCreatedDate(Instant.now());
@@ -36,25 +36,43 @@ public class PostService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<PostResponse> getAll() {
+	public List<PostResponse> getPosts() {
 		return postRepository.findAll().stream().map(this::toResponse).toList();
 	}
 
 	@Transactional(readOnly = true)
-	public PostResponse getById(Long id) {
+	public PostResponse getPostById(Long id) {
 		return toResponse(find(id));
 	}
 
 	@Transactional
-	public void update(Long id, PostRequest postRequest) {
+	public void updatePost(Long id, PostRequest postRequest) {
 		Post post = find(id);
 		apply(post, postRequest);
 		postRepository.save(post);
 	}
 
 	@Transactional
-	public void delete(Long id) {
+	public void deletePost(Long id) {
 		postRepository.delete(find(id));
+	}
+
+	@Transactional(readOnly = true)
+	public List<PostResponse> getPostsBySubredditId(Long subredditId) {
+		Subreddit subreddit = subredditRepository.findById(subredditId)
+			.orElseThrow(() -> new SpringRedditException("Subreddit not found"));
+
+		List<Post> posts = postRepository.findAllBySubreddit(subreddit);
+		return posts.stream().map(this::toResponse).toList();
+	}
+
+	@Transactional(readOnly = true)
+	public List<PostResponse> getPostsByUsername(String username) {
+		User user = userRepository.findByUsername(username)
+			.orElseThrow(() -> new SpringRedditException("User not found"));
+		
+		List<Post> posts = postRepository.findByUser(user);
+		return posts.stream().map(this::toResponse).toList();
 	}
 
 	private void apply(Post post, PostRequest postRequest) {
