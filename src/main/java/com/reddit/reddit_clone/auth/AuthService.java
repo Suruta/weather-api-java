@@ -87,7 +87,7 @@ public class AuthService {
 		return token;
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional
 	public void verifyAccount(String token) {
 		Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
 		verificationToken.orElseThrow(() -> new SpringRedditException("Invalid token"));
