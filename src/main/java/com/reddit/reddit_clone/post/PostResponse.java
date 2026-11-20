@@ -22,8 +22,8 @@ public class PostResponse {
 	private Long userId;
 	private String username;
 
+	private Instant createdDate;
+
 	private Long subredditId;
 	private String subredditName;
-
-	private Instant createdDate;
 }
