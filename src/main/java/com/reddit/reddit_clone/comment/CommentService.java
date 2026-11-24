@@ -6,7 +6,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.reddit.reddit_clone.auth.AuthService;
 import com.reddit.reddit_clone.exception.SpringRedditException;
+import com.reddit.reddit_clone.mail.MailContentBuilder;
+import com.reddit.reddit_clone.mail.MailService;
+import com.reddit.reddit_clone.mail.NotificationEmail;
 import com.reddit.reddit_clone.post.Post;
 import com.reddit.reddit_clone.post.PostRepository;
 import com.reddit.reddit_clone.user.User;
@@ -20,14 +24,24 @@ public class CommentService {
 	private final CommentRepository commentRepository;
 	private final PostRepository postRepository;
 	private final UserRepository userRepository;
+	private final AuthService authService;
+	private final MailService mailService;
+	private final MailContentBuilder mailContentBuilder;
 
 	@Transactional
 	public void createComment(CommentRequest commentRequest) {
 		Comment comment = new Comment();
-		apply(comment, commentRequest);
+		Post post = apply(comment, commentRequest);
 		comment.setCreatedDate(Instant.now());
 
 		commentRepository.save(comment);
+
+		String message = mailContentBuilder.build(post.getUser().getUsername() + " posted a comment on your post.");
+		sendCommentNotification(message, post.getUser());
+	}
+
+	private void sendCommentNotification(String message, User user) {
+		mailService.sendMail(new NotificationEmail(user.getUsername() + "Commented on your post", user.getEmail(), message));
 	}
 
 	@Transactional(readOnly = true)
@@ -47,18 +61,17 @@ public class CommentService {
 		return comments.stream().map(this::toResponse).toList();
 	}
 
-	private void apply(Comment comment, CommentRequest commentRequest) {
+	private Post apply(Comment comment, CommentRequest commentRequest) {
 		Post post = postRepository.findById(commentRequest.getPostId())
 			.orElseThrow(() -> new SpringRedditException("Post not found"));
 
 		comment.setText(commentRequest.getText());
 		comment.setPost(post);;
 
-		if (commentRequest.getUserId() != null) {
-			User user = userRepository.findById(commentRequest.getUserId())
-				.orElseThrow(() -> new SpringRedditException("User not found"));
-			comment.setUser(user);
-		}
+		User user = authService.getCurrentUser();
+		comment.setUser(user);
+
+		return post;
 	}
 
 	private CommentResponse toResponse(Comment comment) {

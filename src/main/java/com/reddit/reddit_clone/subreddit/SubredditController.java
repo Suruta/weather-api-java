@@ -43,14 +43,14 @@ public class SubredditController {
 	}
 
 	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN') or @subredditSecurity.isOwner(#id, authentication.name")
+	@PreAuthorize("hasRole('ADMIN') or @subredditSecurity.isOwner(#id, authentication.name)")
 	public ResponseEntity<String> updateSubreddit(@PathVariable Long id, @RequestBody SubredditRequest subredditRequest) {
 		subredditService.updateSubreddit(id, subredditRequest);
 		return new ResponseEntity<>("Subreddit updated successfully", HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN') or @subredditSecurity.isOwner(#id, authentication.name")
+	@PreAuthorize("hasRole('ADMIN') or @subredditSecurity.isOwner(#id, authentication.name)")
 	public ResponseEntity<String> deleteSubreddit(@PathVariable Long id) {
 		subredditService.deleteSubreddit(id);
 		return new ResponseEntity<>("Subreddit deleted successfully", HttpStatus.OK);

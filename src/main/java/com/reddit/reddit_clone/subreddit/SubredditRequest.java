@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class SubredditRequest {
 	private String name;
 	private String description;
-	private Long userId;
 }

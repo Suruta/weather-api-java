@@ -22,7 +22,7 @@ public class CommentController {
 	@PostMapping
 	public ResponseEntity<String> createComment(@RequestBody CommentRequest commentRequest) {
 		commentService.createComment(commentRequest);
-		return new ResponseEntity<>("Comment created successfully", HttpStatus.OK);
+		return new ResponseEntity<>("Comment created successfully", HttpStatus.CREATED);
 	}
 
 	@GetMapping(params = "postId")

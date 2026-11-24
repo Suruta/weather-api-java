@@ -9,6 +9,7 @@ import com.reddit.reddit_clone.subreddit.Subreddit;
 import com.reddit.reddit_clone.user.User;
 import com.reddit.reddit_clone.subreddit.SubredditRepository;
 import com.reddit.reddit_clone.user.UserRepository;
+import com.reddit.reddit_clone.auth.AuthService;
 import com.reddit.reddit_clone.exception.SpringRedditException;
 
 // import com.reddit.reddit_clone.post.PostRequest;
@@ -25,6 +26,7 @@ public class PostService {
 	private final PostRepository postRepository;
 	private final SubredditRepository subredditRepository;
 	private final UserRepository userRepository;
+	private final AuthService authService;
 
 	@Transactional
 	public void createPost(PostRequest postRequest) {
@@ -84,11 +86,8 @@ public class PostService {
 		post.setDescription(postRequest.getDescription());
 		post.setSubreddit(subreddit);
 
-		if (postRequest.getUserId() != null) {
-			User user = userRepository.findById(postRequest.getUserId())
-				.orElseThrow(() -> new SpringRedditException("User not found"));
-			post.setUser(user);
-		}
+		User user = authService.getCurrentUser();
+		post.setUser(user);
 	}
 
 	private Post find(Long id) {
