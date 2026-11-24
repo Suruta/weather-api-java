@@ -47,3 +47,8 @@ If db user is n't owner of schema:
 ```sql
 GRANT ALL ON SCHEMA public TO public;
 ```
+
+Update desired user manually with psql
+```sql
+UPDATE users SET role = 'ADMIN' WHERE user_id = 1
+```

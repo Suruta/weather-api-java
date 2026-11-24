@@ -25,6 +25,10 @@ public class User {
   
   private Instant created;
   private boolean enabled;
+
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private Role role = Role.USER;
 }
 
 

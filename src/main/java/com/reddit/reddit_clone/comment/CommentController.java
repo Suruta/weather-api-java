@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v1/comments")
+@RequestMapping("/api/v1/comments")
 public class CommentController {
 	private final CommentService commentService;
 

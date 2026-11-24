@@ -36,6 +36,40 @@ StringBoot jpa and hibernate,
 Flyway
 
 
-## Questions to ask
 
-Is it possible to have two identical beans in two different classes?
+## stuff
+
+Authentication vs Authorization
+Frameworks vs Methods
+cors
+
+Types of authentication
+Basic auth methods: Basic, Digest, ApiKeys, Session
+Token-based Auth: Bearer & JWT Tokens, Access & Refresh token,
+OAuth2 and OIDC: OAuth2, OpenID Connect
+SSO
+
+## Major stuff
+
+- post
+- subreddit
+- user
+
+Everybody can create post or subreddit.
+They can delete only the posts or subreddits of themself.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,6 +15,7 @@ import com.reddit.reddit_clone.jwt.JwtService;
 import com.reddit.reddit_clone.jwt.UserDetailsImpl;
 import com.reddit.reddit_clone.mail.MailService;
 import com.reddit.reddit_clone.mail.NotificationEmail;
+import com.reddit.reddit_clone.user.Role;
 import com.reddit.reddit_clone.user.User;
 import com.reddit.reddit_clone.user.UserRepository;
 
@@ -46,6 +47,7 @@ public class AuthService {
 		user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 		user.setCreated(Instant.now());
 		user.setEnabled(false);
+		user.setRole(Role.USER);
 
 		userRepository.save(user);
 
