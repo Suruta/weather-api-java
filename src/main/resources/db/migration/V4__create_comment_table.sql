@@ -1,5 +1,5 @@
 CREATE TABLE comments (
-    id BIGSERIAL PRIMARY KEY,
+    comment_id BIGSERIAL PRIMARY KEY,
     text TEXT NOT NULL,
     created_date TIMESTAMP,
     post_id BIGINT,

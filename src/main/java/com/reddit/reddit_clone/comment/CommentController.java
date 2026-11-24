@@ -15,14 +15,14 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v1/comments")
+@RequestMapping("/api/v1/comments")
 public class CommentController {
 	private final CommentService commentService;
 
 	@PostMapping
 	public ResponseEntity<String> createComment(@RequestBody CommentRequest commentRequest) {
 		commentService.createComment(commentRequest);
-		return new ResponseEntity<>("Comment created successfully", HttpStatus.OK);
+		return new ResponseEntity<>("Comment created successfully", HttpStatus.CREATED);
 	}
 
 	@GetMapping(params = "postId")

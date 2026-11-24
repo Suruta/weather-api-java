@@ -12,5 +12,4 @@ public class PostRequest {
 	private String url;
 	private String description;
 	private Long subredditId;
-	private Long userId;
 }

@@ -4,8 +4,12 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.security.authentication.AnonymousAuthenticationProvider;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,7 @@ import com.reddit.reddit_clone.jwt.JwtService;
 import com.reddit.reddit_clone.jwt.UserDetailsImpl;
 import com.reddit.reddit_clone.mail.MailService;
 import com.reddit.reddit_clone.mail.NotificationEmail;
+import com.reddit.reddit_clone.user.Role;
 import com.reddit.reddit_clone.user.User;
 import com.reddit.reddit_clone.user.UserRepository;
 
@@ -46,6 +51,7 @@ public class AuthService {
 		user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 		user.setCreated(Instant.now());
 		user.setEnabled(false);
+		user.setRole(Role.USER);
 
 		userRepository.save(user);
 
@@ -77,6 +83,31 @@ public class AuthService {
 						.build();
 	}
 
+	@Transactional
+	public void verifyAccount(String token) {
+		Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
+		verificationToken.orElseThrow(() -> new SpringRedditException("Invalid token"));
+
+		fetchUserAndEnable(verificationToken.get());
+	}
+
+	@Transactional(readOnly = true)
+	public User getCurrentUser() {
+		String username = getAuthenticatedUsername();
+		User user = userRepository.findByUsername(username)
+			.orElseThrow(() -> new SpringRedditException("User not found: " + username));
+		return user;
+	}
+
+	private String getAuthenticatedUsername() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
+			throw new SpringRedditException("No authenticated user");
+		}
+		return authentication.getName();
+	}
+
 	private String generateVerificationToken(User user) {
 		String token = UUID.randomUUID().toString();
 		VerificationToken verificationToken = new VerificationToken();
@@ -85,14 +116,6 @@ public class AuthService {
 
 		verificationTokenRepository.save(verificationToken);
 		return token;
-	}
-
-	@Transactional
-	public void verifyAccount(String token) {
-		Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
-		verificationToken.orElseThrow(() -> new SpringRedditException("Invalid token"));
-
-		fetchUserAndEnable(verificationToken.get());
 	}
 
 	private void fetchUserAndEnable(VerificationToken verificationToken) {

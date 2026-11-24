@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.reddit.reddit_clone.user.User;
 import com.reddit.reddit_clone.post.PostRepository;
 import com.reddit.reddit_clone.user.UserRepository;
+import com.reddit.reddit_clone.auth.AuthService;
 import com.reddit.reddit_clone.exception.SpringRedditException;
 
 // import com.reddit.reddit_clone.subreddit.SubredditRequest;
@@ -24,6 +25,7 @@ public class SubredditService {
 	private final SubredditRepository subredditRepository;
 	private final UserRepository userRepository;
 	private final PostRepository postRepository;
+	private final AuthService authService;
 
 	@Transactional
 	public void createSubreddit(SubredditRequest subredditRequest) {
@@ -61,11 +63,8 @@ public class SubredditService {
 		subreddit.setName(subredditRequest.getName());
 		subreddit.setDescription(subredditRequest.getDescription());
 
-		if (subredditRequest.getUserId() != null) {
-			User user = userRepository.findById(subredditRequest.getUserId())
-				.orElseThrow(() -> new SpringRedditException("User not found"));
-			subreddit.setUser(user);
-		}
+		User user = authService.getCurrentUser();
+		subreddit.setUser(user);
 	}
 
 	private Subreddit find(Long id) {
