@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import lombok.AllArgsConstructor;
 
@@ -15,7 +16,7 @@ public class VoteController {
 	private final VoteService voteService;
 
 	@PostMapping
-	public ResponseEntity<String> vote(VoteRequest voteRequest) {
+	public ResponseEntity<String> vote(@RequestBody VoteRequest voteRequest) {
 		voteService.vote(voteRequest);
 		return new ResponseEntity<>("Voted!", HttpStatus.CREATED);
 	}
